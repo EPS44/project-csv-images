@@ -33,6 +33,8 @@ export type Product = {
   agent_links: Record<string, string>;
   sizes: string[];
   images: string[];
+  /** Zdjęcia QC z magazynu agenta. */
+  qc_images: string[];
   seller_id?: string | null;
   batch: string;
   display_order: number;
