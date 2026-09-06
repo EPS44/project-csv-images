@@ -214,6 +214,14 @@ export const scrapeProduct = createServerFn({ method: "POST" })
       });
     const sizes = Array.from(new Set([...letterSizes, ...numericSizes])).slice(0, 30);
 
-    return { ok: true as const, title, images, priceCny, sizes };
+    return {
+      ok: true as const,
+      title,
+      images,
+      priceCny,
+      sizes,
+      colorImages: [] as string[],
+      qcImages: [] as string[],
+    };
   });
 
