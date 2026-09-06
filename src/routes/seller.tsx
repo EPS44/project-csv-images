@@ -281,6 +281,7 @@ function SellerProducts({ seller }: { seller: Seller }) {
 
   const preview: Product = {
     id: "preview",
+    qc_images: [],
     for_women: false,
     verified: false,
     show_on_home: false,
