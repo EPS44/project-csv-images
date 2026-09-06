@@ -27,6 +27,7 @@ function IconLink({
 }
 
 export function CartPanel({ onClose }: { onClose: () => void }) {
+  const { t } = useLang();
   const { items, remove, clear } = useCart();
   const { currency } = useCurrency();
   const total = items.reduce((s, i) => s + i.price, 0);
@@ -71,13 +72,13 @@ export function CartPanel({ onClose }: { onClose: () => void }) {
                       rel="noreferrer"
                       className="text-[10px] font-semibold text-brand-cyan underline"
                     >
-                      Otwórz link →
+                      {t("cart.openLink")}
                     </a>
                   ) : null}
                 </div>
                 <button
                   onClick={() => remove(i.id)}
-                  aria-label="Usuń z koszyka"
+                  aria-label={t("cart.remove")}
                   className="text-xs text-muted-foreground hover:text-primary"
                 >
                   ✕
@@ -88,7 +89,7 @@ export function CartPanel({ onClose }: { onClose: () => void }) {
           <div className="mt-3 flex items-center justify-between border-t border-border pt-2 text-xs">
             <span className="font-bold">{formatPrice(total, currency)}</span>
             <button onClick={clear} className="text-muted-foreground hover:text-primary">
-              Wyczyść
+              {t("cart.clear")}
             </button>
           </div>
         </>
@@ -99,15 +100,15 @@ export function CartPanel({ onClose }: { onClose: () => void }) {
 
 export function SettingsPanel({ onClose }: { onClose: () => void }) {
   const { currency, setCurrency } = useCurrency();
-  const { lang, setLang } = useLang();
+  const { lang, setLang, t } = useLang();
 
   return (
     <div className="w-64 rounded-2xl border border-border bg-surface-deep/95 p-3 backdrop-blur-xl glow-ring">
       <div className="mb-2 flex items-center justify-between">
-        <p className="text-sm font-bold">⚙️ Ustawienia</p>
+        <p className="text-sm font-bold">{t("ui.settings")}</p>
         <button
           onClick={onClose}
-          aria-label="Zamknij ustawienia"
+          aria-label={t("ui.closeSettings")}
           className="text-xs text-muted-foreground hover:text-primary"
         >
           ✕
@@ -115,7 +116,7 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
       </div>
 
       <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-        Waluta
+        {t("ui.currency")}
       </p>
       <div className="mb-3 grid grid-cols-4 gap-1">
         {CURRENCIES.map((c) => (
@@ -134,7 +135,7 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
       </div>
 
       <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-        Język
+        {t("ui.language")}
       </p>
       <div className="grid grid-cols-4 gap-1">
         {LANGS.map((l) => (

@@ -238,7 +238,7 @@ function CartPage() {
               >
                 <span className="mr-1">🎒</span>
                 {t("cart.withoutBox", "Bez pudełka")}
-                <span className="ml-1 block text-[10px] font-normal opacity-80">lżejsze</span>
+                <span className="ml-1 block text-[10px] font-normal opacity-80">{t("cart.lighter")}</span>
               </button>
             </div>
 

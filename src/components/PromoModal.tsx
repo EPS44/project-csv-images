@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAgents, useSettings } from "@/lib/store";
+import { useLang } from "@/lib/i18n";
 
 /** 12 godzin w sekundach — licznik odlicza od nowa przy każdym wejściu. */
 const COUNTDOWN = 12 * 60 * 60;
@@ -32,6 +33,7 @@ function Unit({ value, label }: { value: string; label: string }) {
 }
 
 export function PromoModal() {
+  const { t } = useLang();
   const { data: settings } = useSettings();
   const { data: agents } = useAgents();
   const [open, setOpen] = useState(false);
@@ -66,7 +68,7 @@ export function PromoModal() {
       <div className="relative max-h-[92vh] w-full max-w-md overflow-y-auto rounded-3xl border border-primary/30 bg-surface-deep p-5 glow-ring">
         <button
           onClick={() => setOpen(false)}
-          aria-label="Zamknij"
+          aria-label={t("ui.close")}
           className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full border border-border text-muted-foreground transition-all hover:border-primary hover:text-primary"
         >
           ✕
@@ -107,26 +109,25 @@ export function PromoModal() {
         </div>
 
         <p className="mt-4 text-xs text-muted-foreground">
-          Limitowane czasowo bonusy na zakupy u agenta{agent ? ` ${agent.name}` : ""}.
+          {t("promo.kicker")}{agent ? ` ${agent.name}` : ""}.
         </p>
         <h2 className="mt-1 text-2xl font-black leading-tight">
-          Zgarnij bonusy <span className="text-gradient-brand">warte 3500 zł</span>
+          {t("promo.title1")} <span className="text-gradient-brand">{t("promo.title2")}</span>
         </h2>
         <p className="mt-2 text-[13px] text-muted-foreground">
-          Zarejestruj się przez nasz link i odbierz najlepsze bonusy powitalne oraz zniżki na
-          wysyłkę.
+          {t("promo.desc")}
         </p>
 
         <div className="mt-4 space-y-2">
-          <Row icon="🏷" label="Bonus powitalny na zakupy" value="+3 500 PLN" />
-          <Row icon="🚚" label="Zniżka na wysyłkę" value="−40%" />
-          <Row icon="%" label="Kupony na kolejne zamówienia" value="−40%" />
+          <Row icon="🏷" label={t("promo.row1")} value="+3 500 PLN" />
+          <Row icon="🚚" label={t("promo.row2")} value="−40%" />
+          <Row icon="%" label={t("promo.row3")} value="−40%" />
         </div>
 
         <div className="mt-4 flex gap-2">
-          <Unit value={pad(h)} label="Godz" />
-          <Unit value={pad(m)} label="Min" />
-          <Unit value={pad(s)} label="Sek" />
+          <Unit value={pad(h)} label={t("promo.hours")} />
+          <Unit value={pad(m)} label={t("promo.minutes")} />
+          <Unit value={pad(s)} label={t("promo.seconds")} />
         </div>
 
         <a
@@ -135,14 +136,14 @@ export function PromoModal() {
           rel="noreferrer"
           className="mt-4 block rounded-2xl gradient-brand px-6 py-3.5 text-center text-sm font-extrabold text-surface-deep transition-transform hover:scale-[1.02]"
         >
-          ⚡ Zarejestruj się i odbierz bonusy →
+          {t("promo.cta")}
         </a>
 
         <button
           onClick={() => setOpen(false)}
           className="mt-2 w-full text-center text-[11px] text-muted-foreground hover:text-foreground"
         >
-          Nie, rezygnuję z darmowych bonusów
+          {t("promo.decline")}
         </button>
       </div>
     </div>

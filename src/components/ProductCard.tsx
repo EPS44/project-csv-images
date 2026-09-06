@@ -1,6 +1,7 @@
 import { PriceTags, QualityBadges, VerifiedBadge } from "@/components/PriceTags";
 import type { Product } from "@/lib/store";
 import { useCart } from "@/lib/cart";
+import { useLang } from "@/lib/i18n";
 
 /**
  * Lightweight grid card: single image + views, title, category, badges,
@@ -13,6 +14,7 @@ export function ProductCard({
   product: Product;
   onDetails?: (p: Product) => void;
 }) {
+  const { t } = useLang();
   const { has, toggle } = useCart();
   const inCart = has(product.id);
 
@@ -30,13 +32,13 @@ export function ProductCard({
           />
         ) : (
           <div className="flex h-full items-center justify-center text-xs text-muted-foreground">
-            Brak zdjęcia
+            {t("product.noImage")}
           </div>
         )}
 
         <button
-          aria-label={inCart ? "Usuń z koszyka" : "Dodaj do koszyka"}
-          title={inCart ? "Usuń z koszyka" : "Dodaj do koszyka"}
+          aria-label={inCart ? t("cart.remove") : t("product.add")}
+          title={inCart ? t("cart.remove") : t("product.add")}
           onClick={() => toggle(product)}
           className={`absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-lg border bg-surface-deep/70 text-sm backdrop-blur transition-all hover:border-primary hover:glow-ring ${
             inCart ? "border-primary glow-ring" : "border-border"
@@ -68,7 +70,7 @@ export function ProductCard({
             onClick={() => onDetails?.(product)}
             className="rounded-lg gradient-brand px-3 py-1.5 text-xs font-bold text-surface-deep transition-all hover:-translate-y-0.5 hover:glow-ring-strong hover:brightness-110"
           >
-            Sprawdź →
+            {t("product.check")}
           </button>
         </div>
       </div>

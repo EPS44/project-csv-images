@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductModal } from "@/components/ProductModal";
 import { useAgents, useProducts, useSellers, type Product } from "@/lib/store";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/sklep/$slug")({
   head: () => ({
@@ -20,6 +21,7 @@ export const Route = createFileRoute("/sklep/$slug")({
 });
 
 function StorePage() {
+  const { t } = useLang();
   const { slug } = Route.useParams();
   const { data: sellers } = useSellers();
   const { data: products } = useProducts();
@@ -63,7 +65,7 @@ function StorePage() {
                 rel="noreferrer"
                 className="mt-2 inline-block rounded-lg border border-primary/60 px-3 py-1.5 text-[11px] font-bold uppercase tracking-wide text-primary hover:glow-ring"
               >
-                Zewnętrzny sklep / Yupoo →
+                {t("store.external")}
               </a>
             ) : null}
           </div>
@@ -72,7 +74,7 @@ function StorePage() {
 
       {items.length === 0 ? (
         <p className="mt-8 rounded-2xl border border-border bg-surface p-10 text-center text-sm text-muted-foreground">
-          Ten sklep nie ma jeszcze produktów.
+          {t("store.noProducts")}
         </p>
       ) : (
         <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

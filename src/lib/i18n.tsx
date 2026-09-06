@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { safeStorage, useSettings } from "@/lib/store";
+import { EXTRA_TRANSLATIONS } from "@/lib/i18n.translations";
 
 export type Lang = "pl" | "en" | "de" | "fr" | "es" | "it" | "zh";
 
@@ -261,6 +262,43 @@ export const DICT: Record<string, Partial<Record<Lang, string>> & { pl: string; 
   "stores.empty": { pl: "Brak aktywnych sklep\u00f3w.", en: "No active stores." },
   "stores.products": { pl: "produkt\u00f3w", en: "products" },
   "stores.enter": { pl: "Wejd\u017a \u2192", en: "Enter \u2192" },
+
+  "ui.settings": { pl: "⚙️ Ustawienia", en: "⚙️ Settings" },
+  "ui.currency": { pl: "Waluta", en: "Currency" },
+  "ui.language": { pl: "Język", en: "Language" },
+  "ui.close": { pl: "Zamknij", en: "Close" },
+  "ui.closeSettings": { pl: "Zamknij ustawienia", en: "Close settings" },
+  "ui.settingsAria": { pl: "Ustawienia (waluta i język)", en: "Settings (currency and language)" },
+  "cart.lighter": { pl: "lżejsze", en: "lighter" },
+  "product.noImage": { pl: "Brak zdjęcia", en: "No photo" },
+  "product.check": { pl: "Sprawdź →", en: "View →" },
+  "product.add": { pl: "Dodaj do koszyka", en: "Add to cart" },
+  "product.qc": { pl: "📷 Zdjęcia QC", en: "📷 QC photos" },
+  "product.enterStore": { pl: "Wejdź na sklep", en: "Visit store" },
+  "tiktok.empty": {
+    pl: "Brak produktów z TikToka w tej kategorii.",
+    en: "No TikTok products in this category.",
+  },
+  "store.external": { pl: "Zewnętrzny sklep / Yupoo →", en: "External store / Yupoo →" },
+  "store.noProducts": { pl: "Ten sklep nie ma jeszcze produktów.", en: "This store has no products yet." },
+  "promo.kicker": {
+    pl: "Limitowane czasowo bonusy na zakupy u agenta",
+    en: "Limited-time bonuses for shopping with the agent",
+  },
+  "promo.title1": { pl: "Zgarnij bonusy", en: "Grab bonuses" },
+  "promo.title2": { pl: "warte 3500 zł", en: "worth 3500 PLN" },
+  "promo.desc": {
+    pl: "Zarejestruj się przez nasz link i odbierz najlepsze bonusy powitalne oraz zniżki na wysyłkę.",
+    en: "Sign up through our link and claim the best welcome bonuses and shipping discounts.",
+  },
+  "promo.row1": { pl: "Bonus powitalny na zakupy", en: "Welcome shopping bonus" },
+  "promo.row2": { pl: "Zniżka na wysyłkę", en: "Shipping discount" },
+  "promo.row3": { pl: "Kupony na kolejne zamówienia", en: "Coupons for future orders" },
+  "promo.hours": { pl: "Godz", en: "Hrs" },
+  "promo.minutes": { pl: "Min", en: "Min" },
+  "promo.seconds": { pl: "Sek", en: "Sec" },
+  "promo.cta": { pl: "⚡ Zarejestruj się i odbierz bonusy →", en: "⚡ Sign up and claim bonuses →" },
+  "promo.decline": { pl: "Nie, rezygnuję z darmowych bonusów", en: "No thanks, skip the free bonuses" },
 };
 
 /** Tłumaczenia najważniejszych tekstów na pozostałe języki (reszta = angielski). */
@@ -380,6 +418,14 @@ const EXTRA: Partial<Record<Lang, Record<string, string>>> = {
     "home.outfitCta": "随机穿搭 →",
   },
 };
+
+// Pełne tłumaczenia DE/FR/ES/IT/ZH dla wszystkich kluczy.
+for (const [key, langs] of Object.entries(EXTRA_TRANSLATIONS)) {
+  if (!DICT[key]) continue;
+  for (const [lang, value] of Object.entries(langs)) {
+    if (value && value.trim()) DICT[key]![lang as Lang] = value;
+  }
+}
 
 for (const [lang, entries] of Object.entries(EXTRA)) {
   for (const [key, value] of Object.entries(entries)) {
