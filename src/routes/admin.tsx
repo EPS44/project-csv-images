@@ -1111,6 +1111,7 @@ function ProductsTab() {
     batch: "",
     sizes: "",
     images: "",
+    qc_images: "",
     seller_id: "",
     tiktok_url: "",
     display_order: 0,
@@ -1228,6 +1229,7 @@ function ProductsTab() {
         title: f.title || res.title,
         image_url: f.image_url || (res.images[0] ?? ""),
         images: f.images || res.images.slice(1).join(", "),
+        qc_images: f.qc_images || res.qcImages.join(", "),
         sizes: f.sizes || res.sizes.join(", "),
         price: f.price || String(Math.round(plnFromCny(res.priceCny) * 100) / 100),
         agent_links: buildAgentLinks(scrapeUrl, f.agent_links),
@@ -1255,6 +1257,7 @@ function ProductsTab() {
       batch: form.batch,
       sizes: enteredSizes.length || !isShirt(form.title, form.category) ? enteredSizes : DEFAULT_SHIRT_SIZES,
       images: parseList(form.images),
+      qc_images: parseList(form.qc_images),
       seller_id: form.seller_id || null,
       tiktok_url: form.tiktok_url || null,
       display_order: Number(form.display_order) || 0,
@@ -1286,6 +1289,7 @@ function ProductsTab() {
     quality: form.quality,
     sizes: parseList(form.sizes),
     images: parseList(form.images),
+    qc_images: parseList(form.qc_images),
     views: Number(form.views) || 0,
     agent_links: form.agent_links,
     batch: form.batch,
@@ -1419,6 +1423,12 @@ function ProductsTab() {
               placeholder="Dodatkowe zdjęcia / kolorystyki po przecinku (URL, URL)"
               value={form.images}
               onChange={(e) => setForm({ ...form, images: e.target.value })}
+            />
+            <input
+              className={input}
+              placeholder="Zdjęcia QC po przecinku (URL, URL)"
+              value={form.qc_images}
+              onChange={(e) => setForm({ ...form, qc_images: e.target.value })}
             />
             <select
               className={input}
@@ -1649,6 +1659,7 @@ function ProductsTab() {
                     batch: p.batch ?? "",
                     sizes: (p.sizes ?? []).join(", "),
                     images: (p.images ?? []).join(", "),
+                    qc_images: (p.qc_images ?? []).join(", "),
                     seller_id: p.seller_id ?? "",
                     tiktok_url: p.tiktok_url ?? "",
                     display_order: p.display_order ?? 0,

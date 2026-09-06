@@ -106,6 +106,7 @@ export type Database = {
           price: number
           price_cny: number
           promoted: boolean
+          qc_images: string[]
           qc_url: string | null
           quality: string
           seller_id: string | null
@@ -131,6 +132,7 @@ export type Database = {
           price?: number
           price_cny?: number
           promoted?: boolean
+          qc_images?: string[]
           qc_url?: string | null
           quality?: string
           seller_id?: string | null
@@ -156,6 +158,7 @@ export type Database = {
           price?: number
           price_cny?: number
           promoted?: boolean
+          qc_images?: string[]
           qc_url?: string | null
           quality?: string
           seller_id?: string | null
