@@ -7,7 +7,7 @@ import { SettingsPanel } from "@/components/FloatingIsland";
 
 function HeaderActions() {
   const { items } = useCart();
-  const { lang } = useLang();
+  const { lang, t } = useLang();
   const [settingsOpen, setSettingsOpen] = useState(false);
   const current = LANGS.find((l) => l.code === lang) ?? LANGS[0]!;
 
@@ -29,7 +29,7 @@ function HeaderActions() {
 
       <button
         onClick={() => setSettingsOpen((p) => !p)}
-        aria-label="Ustawienia (waluta i język)"
+        aria-label={t("ui.settingsAria")}
         title={`Ustawienia · ${current.label}`}
         className={`flex h-9 items-center justify-center gap-1.5 rounded-lg border px-2 text-sm transition-all hover:border-primary hover:glow-ring-strong ${
           settingsOpen

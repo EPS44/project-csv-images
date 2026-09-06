@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { ProductCard } from "@/components/ProductCard";
 import { ProductModal } from "@/components/ProductModal";
 import { useAgents, useCategories, useProducts, type Product } from "@/lib/store";
+import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/linki")({
   head: () => ({
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/linki")({
 });
 
 function LinkiPage() {
+  const { t } = useLang();
   const { data: products } = useProducts();
   const { data: agents } = useAgents();
   const { data: categories } = useCategories();
@@ -63,7 +65,7 @@ function LinkiPage() {
 
       {filtered.length === 0 ? (
         <p className="rounded-2xl border border-border bg-surface p-10 text-center text-sm text-muted-foreground">
-          Brak produktów z TikToka w tej kategorii.
+          {t("tiktok.empty")}
         </p>
       ) : (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

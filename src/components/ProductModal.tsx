@@ -3,6 +3,7 @@ import { PriceTags, QualityBadges, VerifiedBadge } from "@/components/PriceTags"
 import type { Agent, Product } from "@/lib/store";
 import { registerProductView } from "@/lib/secure.functions";
 import { safeStorage } from "@/lib/store";
+import { useLang } from "@/lib/i18n";
 
 /** Interactive shopping modal: pick colorway + size, then buy through an agent. */
 export function ProductModal({
@@ -17,6 +18,7 @@ export function ProductModal({
   const gallery = [product.image_url, ...(product.images ?? [])].filter(
     (u): u is string => Boolean(u),
   );
+  const { t } = useLang();
   const [active, setActive] = useState(0);
   const [size, setSize] = useState(product.sizes?.[0] ?? "");
 
@@ -68,7 +70,7 @@ export function ProductModal({
                 />
               ) : (
                 <div className="flex h-full items-center justify-center text-xs text-muted-foreground">
-                  Brak zdjęcia
+                  {t("product.noImage")}
                 </div>
               )}
             </div>
@@ -119,7 +121,7 @@ export function ProductModal({
                   rel="noreferrer"
                   className="flex items-center justify-center gap-2 rounded-lg gradient-brand px-3 py-2.5 text-xs font-extrabold uppercase tracking-wide text-surface-deep transition-all hover:brightness-110"
                 >
-                  Wejdź na sklep {product.store_name || "Yupoo"} →
+                  {t("product.enterStore")} {product.store_name || "Yupoo"} →
                 </a>
               ) : null}
               {agents.map((a) => {
@@ -150,7 +152,7 @@ export function ProductModal({
                 rel="noreferrer"
                 className="block rounded-lg border border-border px-3 py-2 text-center text-xs font-semibold text-muted-foreground hover:border-primary hover:text-primary"
               >
-                📷 Zdjęcia QC
+                {t("product.qc")}
               </a>
             ) : null}
           </div>
