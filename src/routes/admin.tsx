@@ -1659,6 +1659,7 @@ function ProductsTab() {
                     batch: p.batch ?? "",
                     sizes: (p.sizes ?? []).join(", "),
                     images: (p.images ?? []).join(", "),
+                    qc_images: (p.qc_images ?? []).join(", "),
                     seller_id: p.seller_id ?? "",
                     tiktok_url: p.tiktok_url ?? "",
                     display_order: p.display_order ?? 0,
