@@ -442,17 +442,32 @@ const LangContext = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({
   setLang: () => {},
 });
 
+/** Wybrany język pamiętamy na stałe (localStorage), z fallbackiem na sesję. */
+function readSavedLang(): Lang | null {
+  try {
+    const stored = globalThis.localStorage?.getItem("pkmr_lang") ?? safeStorage.get("pkmr_lang");
+    return stored && LANG_CODES.includes(stored as Lang) ? (stored as Lang) : null;
+  } catch {
+    return safeStorage.get("pkmr_lang") as Lang | null;
+  }
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("pl");
 
   useEffect(() => {
-    const saved = safeStorage.get("pkmr_lang");
-    if (saved && LANG_CODES.includes(saved as Lang)) setLangState(saved as Lang);
+    const saved = readSavedLang();
+    if (saved) setLangState(saved);
   }, []);
 
   const setLang = (l: Lang) => {
     setLangState(l);
     safeStorage.set("pkmr_lang", l);
+    try {
+      globalThis.localStorage?.setItem("pkmr_lang", l);
+    } catch {
+      /* ignore */
+    }
   };
 
   return <LangContext.Provider value={{ lang, setLang }}>{children}</LangContext.Provider>;
