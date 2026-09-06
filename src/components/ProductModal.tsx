@@ -145,6 +145,32 @@ export function ProductModal({
             </div>
 
 
+            {product.qc_images?.length ? (
+              <div>
+                <p className="mb-2 text-xs font-bold uppercase tracking-wide text-muted-foreground">
+                  QC
+                </p>
+                <div className="grid grid-cols-3 gap-2">
+                  {product.qc_images.map((u, i) => (
+                    <a
+                      key={`${u}-${i}`}
+                      href={u}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="aspect-square overflow-hidden rounded-lg border border-border hover:border-primary"
+                    >
+                      <img
+                        src={u}
+                        alt={`QC ${i + 1}`}
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                      />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
             {product.qc_url ? (
               <a
                 href={product.qc_url}
